@@ -1,29 +1,12 @@
 <template>
   <div class="slider">
     <div class="slider-inner">
-      <div class="slider-item" :style="{ 'margin-left': slide }">
-        <div class="slider-item-view">
-          <img class="slider-img" src="" alt="132">
-          <p class="slider-item-title">E-ON ORIGINAL KIWI1</p>
-          <img class="sl-item-bg" src="" alt="">
-        </div>
-      </div>
-
-      <div class="slider-item">
-          <div class="slider-item-view">
-              <img class="slider-img" src="" alt="132">
-              <p class="slider-item-title">E-ON ORIGINAL KIWI1</p>
-              <img class="sl-item-bg" src="" alt="">
-          </div>
-      </div>
-
-      <div class="slider-item">
-          <div class="slider-item-view">
-              <img class="slider-img" src="" alt="132">
-              <p class="slider-item-title">E-ON ORIGINAL KIWI1</p>
-              <img class="sl-item-bg" src="" alt="">
-          </div>
-      </div>
+        <SliderItem
+            v-for="(sliderItem, index) in SLIDER_ITEMS"
+            :key="index"
+            :slider-item="sliderItem"
+            :style="'margin-left:' + slide"
+        />
     </div>
     <div class="slider-item-nav">
       <p class="slider-item-nav-title">Коктели</p>
@@ -53,10 +36,12 @@ import TagArrowRightIcon from "vue-material-design-icons/TagArrowRight.vue";
 import ChevronDoubleLeftIcon from "vue-material-design-icons/ChevronDoubleLeft.vue";
 import ChevronLeftIcon from "vue-material-design-icons/ChevronLeft.vue";
 import ChevronRightIcon from "vue-material-design-icons/ChevronRight.vue";
+import SliderItem from "@/components/UI/slider/SliderItem.vue";
 
 export default {
   name: "Slider",
   components: {
+      SliderItem,
       ChevronRightIcon,
       ChevronLeftIcon,
       ChevronDoubleLeftIcon,
@@ -65,7 +50,8 @@ export default {
   },
   data() {
     return {
-        color: "#6CAE4B"
+        color: "#6CAE4B",
+        sliderItems: []
     }
   },
   computed: {
@@ -86,9 +72,15 @@ export default {
       this.GET_PREV_SLIDE();
     },
       ...mapActions([
+          "GET_ITEMS_FROM_API",
           "GET_NEXT_SLIDE",
           "GET_PREV_SLIDE"
       ])
+  },
+  mounted() {
+    this.GET_ITEMS_FROM_API().then(response => {
+        if (response.data) console.log(response.data)
+    });
   }
 }
 </script>

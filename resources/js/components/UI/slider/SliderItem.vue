@@ -1,21 +1,37 @@
 <template>
-    <div class="slider-item" :style="{ 'margin-left': slide }">
+    <div class="slider-item">
         <div class="slider-item-view">
-            <img class="slider-img" src="@/assets/image/sliderItem1.png" alt="">
-            <p>E-ON ORIGINAL KIWI1</p>
+            <img class="slider-img" :src="getImageUrl(sliderItem.img)" :alt="image">
+            <p class="slider-item-title">{{ sliderItem.title }}</p>
+            <img class="sl-item-bg" src="" alt="">
         </div>
     </div>
 </template>
 
 <script>
-export default {
+    export default {
+    data() {
+        return {
+        }
+    },
     name: "SliderItem",
     methods: {
+        getImageUrl(filename) {
+            return import.meta.env.VITE_APP_IMAGE_PATH + filename
+        },
+    },
+    props: {
+      sliderItem: {
+        type: Object,
+        default() {
+            return {}
+        }
+      }
     },
     computed: {
-        slide() {
-            return this.$emit('slide')
-        }
+    },
+    mounted() {
+
     }
 }
 </script>
