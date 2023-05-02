@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\HomeSliderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;

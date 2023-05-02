@@ -39,49 +39,49 @@ import ChevronRightIcon from "vue-material-design-icons/ChevronRight.vue";
 import SliderItem from "@/components/UI/slider/SliderItem.vue";
 
 export default {
-  name: "Slider",
-  components: {
-      SliderItem,
-      ChevronRightIcon,
-      ChevronLeftIcon,
-      ChevronDoubleLeftIcon,
-      TagArrowRightIcon,
-      ArrowLeftCircleIcon,
-  },
-  data() {
-    return {
-        color: "#6CAE4B",
-        sliderItems: []
-    }
-  },
-  computed: {
-      ...mapGetters([
-          'CURRENT_SLIDE_INDEX',
-          "SLIDER_ITEMS"
-      ]),
+    components: {
+        SliderItem,
+        ChevronRightIcon,
+        ChevronLeftIcon,
+        ChevronDoubleLeftIcon,
+        TagArrowRightIcon,
+        ArrowLeftCircleIcon,
+    },
+    computed: {
+        ...mapGetters([
+            'CURRENT_SLIDE_INDEX',
+            "SLIDER_ITEMS"
+        ]),
 
-    slide() {
-        return (-100 * this.CURRENT_SLIDE_INDEX) + "%";
-    }
-  },
-  methods: {
-    nextSLide() {
-      this.GET_NEXT_SLIDE();
+        slide() {
+            return (-100 * this.CURRENT_SLIDE_INDEX) + "%";
+        }
     },
-    prevSlide() {
-      this.GET_PREV_SLIDE();
+    data() {
+        return {
+            color: "#6CAE4B",
+            sliderItems: []
+        }
     },
-      ...mapActions([
-          "GET_ITEMS_FROM_API",
-          "GET_NEXT_SLIDE",
-          "GET_PREV_SLIDE"
-      ])
-  },
-  mounted() {
-    this.GET_ITEMS_FROM_API().then(response => {
-        if (response.data) console.log(response.data)
-    });
-  }
+    methods: {
+        nextSLide() {
+            this.GET_NEXT_SLIDE();
+        },
+        prevSlide() {
+            this.GET_PREV_SLIDE();
+        },
+        ...mapActions([
+            "GET_ITEMS_FROM_API",
+            "GET_NEXT_SLIDE",
+            "GET_PREV_SLIDE"
+        ])
+    },
+    mounted() {
+        this.GET_ITEMS_FROM_API().then(response => {
+            if (response.data) console.log(response.data)
+        });
+    },
+    name: "Slider"
 }
 </script>
 
@@ -140,14 +140,14 @@ export default {
       z-index: 1;
   }
 
-  .material-design-icon__svg {
+  .chevron-right-icon .material-design-icon__svg {
       border: 3px solid #6CAE4B;
       border-radius: 100px;
       cursor: pointer;
       margin-left: 20px;
   }
 
-  .material-design-icon__svg:hover {
+  .chevron-right-icon .material-design-icon__svg:hover {
       fill: white;
       background: #6CAE4B;
   }
