@@ -1,36 +1,36 @@
 <template>
-  <nav class="header-nav">
-    <router-link class="nav-link" to="/">Главная</router-link>
-    <router-link class="nav-link" to="/menu">Меню</router-link>
-    <router-link class="nav-link" to="/blog">Блог</router-link>
-    <router-link class="nav-link" to="/about">О нас</router-link>
-    <router-link class="nav-link" to="/contact">Контакты</router-link>
-  </nav>
+    <nav class="header-nav">
+        <router-link class="nav-link" to="/">Главная</router-link>
+        <router-link class="nav-link" to="/menu">Меню</router-link>
+        <router-link class="nav-link" to="/blog">Блог</router-link>
+        <router-link class="nav-link" to="/about">О нас</router-link>
+        <router-link class="nav-link" to="/contact">Контакты</router-link>
+    </nav>
 </template>
 
 <script>
 export default {
-  name: "NavBar"
-}
+    name: "NavBar",
+};
 </script>
 
 <style>
-  .header-nav {
+.header-nav {
     display: flex;
-  }
+}
 
-  .nav-link {
+.nav-link {
     margin-left: 77px;
     color: white;
     text-transform: uppercase;
     font-size: 20px;
     font-weight: bold;
-    letter-spacing: .2em;
+    letter-spacing: 0.2em;
     font-family: "Open Sans", sans-serif;
     margin-top: 20px;
-  }
+}
 
-  .nav-link::after {
+.nav-link::after {
     content: "";
     background-color: white;
     display: flex;
@@ -39,15 +39,15 @@ export default {
     height: 3px;
     border-radius: 100px;
     margin: 10px auto;
-    transition: all .5s linear;
-  }
+    transition: all 0.5s linear;
+}
 
-  .nav-link:hover::after {
+.nav-link:hover::after {
     width: 95%;
-    transition: all .2s linear;
-  }
+    transition: all 0.2s linear;
+}
 
-  .nav-link:first-child {
+.nav-link:first-child {
     margin-left: 0;
-  }
+}
 </style>

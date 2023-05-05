@@ -1,18 +1,18 @@
 <template>
-  <div class="container">
-    <slot></slot>
-  </div>
+    <div class="container">
+        <slot></slot>
+    </div>
 </template>
 
 <script>
 export default {
-  name: "Container"
-}
+    name: "Container",
+};
 </script>
 
 <style>
-  .container {
+.container {
     max-width: 90%;
     margin: 0 auto;
-  }
+}
 </style>

@@ -1,12 +1,11 @@
 <template>
-<!--  <img class="logo" :src="require('@/assets/image/logo.png')"  alt="">-->
+    <!--  <img class="logo" :src="require('@/assets/image/logo.png')"  alt="">-->
 </template>
 
 <script>
 export default {
-  name: "Logo"
-}
+    name: "Logo",
+};
 </script>
 
-<style>
-</style>
+<style></style>
