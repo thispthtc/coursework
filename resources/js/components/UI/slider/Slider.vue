@@ -1,31 +1,30 @@
 <template>
-  <div class="slider">
-    <div class="slider-inner">
-        <SliderItem
-            v-for="(sliderItem, index) in SLIDER_ITEMS"
-            :key="index"
-            :slider-item="sliderItem"
-            :style="'margin-left:' + slide"
-        />
+    <div class="slider">
+        <div class="slider-inner">
+            <SliderItem
+                v-for="(sliderItem, index) in SLIDER_ITEMS"
+                :key="index"
+                :slider-item="sliderItem"
+            />
+        </div>
+        <div class="slider-item-nav">
+            <p class="slider-item-nav-title">Коктели</p>
+            <div class="slider-nav">
+                <chevron-left-icon
+                    class="slider-btn"
+                    :size="44"
+                    :fill-color="color"
+                    @click="prevSlide"
+                />
+                <chevron-right-icon
+                    class="slider-btn"
+                    :size="44"
+                    :fill-color="color"
+                    @click="nextSlide"
+                />
+            </div>
+        </div>
     </div>
-    <div class="slider-item-nav">
-      <p class="slider-item-nav-title">Коктели</p>
-      <div class="slider-nav">
-        <chevron-left-icon
-           class="slider-btn"
-           :size="44"
-           :fill-color="color"
-           @click="prevSlide"
-        />
-        <chevron-right-icon
-          class="slider-btn"
-          :size="44"
-          :fill-color="color"
-          @click="nextSLide"
-        />
-      </div>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -39,6 +38,7 @@ import ChevronRightIcon from "vue-material-design-icons/ChevronRight.vue";
 import SliderItem from "@/components/UI/slider/SliderItem.vue";
 
 export default {
+    name: "Slider",
     components: {
         SliderItem,
         ChevronRightIcon,
@@ -47,124 +47,80 @@ export default {
         TagArrowRightIcon,
         ArrowLeftCircleIcon,
     },
-    computed: {
-        ...mapGetters([
-            'CURRENT_SLIDE_INDEX',
-            "SLIDER_ITEMS"
-        ]),
-
-        slide() {
-            return (-100 * this.CURRENT_SLIDE_INDEX) + "%";
-        }
-    },
     data() {
+        let sliderItems = document.querySelectorAll(".slider-item");
         return {
             color: "#6CAE4B",
-            sliderItems: []
+            currentSlide: sliderItems.length-1
+        };
+    },
+    props: {
+        sliderItem: {
+            type: Object
         }
     },
+    computed: {
+        ...mapGetters(["SLIDER_ITEMS"]),
+    },
     methods: {
-        nextSLide() {
-            this.GET_NEXT_SLIDE();
-        },
-        prevSlide() {
-            this.GET_PREV_SLIDE();
-        },
-        ...mapActions([
-            "GET_ITEMS_FROM_API",
-            "GET_NEXT_SLIDE",
-            "GET_PREV_SLIDE"
-        ])
+        ...mapActions(["GET_ITEMS_FROM_API"]),
+
+        nextSlide() {
+            let sliderItems = document.querySelectorAll(".slider-item");
+            console.log(+this.currentSlide)
+            sliderItems[this.currentSlide].style.opacity = "0%"
+            this.currentSlide++
+        }
     },
     mounted() {
-        this.GET_ITEMS_FROM_API().then(response => {
-            if (response.data) console.log(response.data)
+        this.GET_ITEMS_FROM_API().then((response) => {
+            if (response.data) console.log(response.data);
         });
     },
-    name: "Slider"
-}
+};
 </script>
 
 <style>
-  .slider {
+.slider {
     width: 808px;
-  }
+}
 
-  .slider-inner {
+.slider-inner {
     display: flex;
     outline: 2px solid var(--green);
     border-radius: 50px;
-      background-color: white;
-
-  }
-
-  .sl-item-bg {
-      position: absolute;
-      width: 100%;
-      bottom: 0;
-  }
-
-  .slider-item {
-		height: 588px;
-      border-radius: 40px;
-      position: relative;
-  }
-
-  .slider-item-title {
-      text-transform: uppercase;
-      color: white;
-      font-family: "Open Sans", sans-serif;
-      font-weight: bold;
-      font-size: 20px;
-      letter-spacing: .2em;
-      padding: 30px 50px;
-      background: #559634;
-      border-radius: 40px;
-      z-index: 1;
-
-  }
-
-  .slider-item-view {
-    width: 808px;
-    height: 588px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     background-color: white;
-    position: absolute;
-      border-radius: 40px;
-  }
+}
 
-  .slider-img {
-    height: 500px;
-      z-index: 1;
-  }
 
-  .chevron-right-icon .material-design-icon__svg {
-      border: 3px solid #6CAE4B;
-      border-radius: 100px;
-      cursor: pointer;
-      margin-left: 20px;
-  }
 
-  .chevron-right-icon .material-design-icon__svg:hover {
-      fill: white;
-      background: #6CAE4B;
-  }
+.chevron-right-icon .material-design-icon__svg,
+.chevron-left-icon .material-design-icon__svg {
+    border: 3px solid #6cae4b;
+    border-radius: 100px;
+    cursor: pointer;
+    margin-left: 20px;
+}
 
-  .slider-item-nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 50px;
-  }
+.chevron-right-icon .material-design-icon__svg:hover,
+.chevron-left-icon .material-design-icon__svg:hover {
+    fill: white;
+    background: #6cae4b;
+}
 
-  .slider-item-nav-title {
-      font-size: 32px;
-      text-transform: uppercase;
-      font-family: "Open Sans", sans-serif;
-      font-weight: bold;
-      color: var(--green);
-      letter-spacing: .2em;
-  }
+.slider-item-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.slider-item-nav-title {
+    font-size: 32px;
+    text-transform: uppercase;
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    color: var(--green);
+    letter-spacing: 0.2em;
+}
 </style>
