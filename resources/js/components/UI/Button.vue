@@ -27,13 +27,13 @@ export default {
     color: white;
     text-transform: uppercase;
     padding: 16px 28px;
-    margin-top: 210px;
     transition: all 0.3s linear;
+    width: 350px;
 }
 
 .btn:hover {
     background: white;
-    color: var(--green);
+    color: #006060;
     transition: background-color 0.1s linear;
 }
 </style>

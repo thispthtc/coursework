@@ -6,10 +6,11 @@
 <script>
 import HomeSection from "../components/section/home/HomeSection.vue";
 import AboutSection from "../components/section/about/AboutSection.vue";
+import Header from "../components/section/Header.vue";
 
 export default {
     name: "Home",
-    components: { AboutSection, HomeSection },
+    components: { AboutSection, HomeSection, Header },
 };
 </script>
 

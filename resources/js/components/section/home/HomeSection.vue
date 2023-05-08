@@ -1,36 +1,13 @@
 <template>
     <section class="home">
-        <img class="home-bg" :src="image"  alt="">
+        <img class="home-bg" :src="image" alt="">
+        <Header/>
         <Container>
             <div class="home-inner">
                 <HomeInnerInfo />
                 <Slider />
             </div>
         </Container>
-        <div class="bg-icon" v-for="i in 7">
-            <div class="bg-icon-item" v-for="i in 10">
-                <coffee-outline-icon
-                    :fill-color="'#6CAE4B'"
-                    class="icon"
-                    :size="(Math.random() + 12) * 5"
-                />
-                <food-icon
-                    :fill-color="'#6CAE4B'"
-                    class="icon"
-                    :size="(Math.random() + 10) * 5"
-                />
-                <glass-wine-icon
-                    :fill-color="'#6CAE4B'"
-                    class="icon"
-                    :size="(Math.random() + 10) * 5"
-                />
-                <beer-outline-icon
-                    :fill-color="'#6CAE4B'"
-                    class="icon"
-                    :size="(Math.random() + 10) * 5"
-                />
-            </div>
-        </div>
     </section>
 </template>
 
@@ -43,16 +20,18 @@ import CoffeeOutlineIcon from "vue-material-design-icons/CoffeeOutline.vue";
 import FoodIcon from "vue-material-design-icons/Food.vue";
 import GlassWineIcon from "vue-material-design-icons/GlassWine.vue";
 import BeerOutlineIcon from "vue-material-design-icons/BeerOutline.vue";
+import Header from "@/components/section/Header.vue";
 
 export default {
     data() {
         return {
-            image: import.meta.env.VITE_APP_IMAGE_PATH + "img_5.png",
+            image: import.meta.env.VITE_APP_IMAGE_PATH + "bg.jpg",
         };
     },
     methods: {},
     name: "HomeSection",
     components: {
+        Header,
         BeerOutlineIcon,
         GlassWineIcon,
         FoodIcon,
@@ -63,12 +42,6 @@ export default {
         Container,
     },
     mounted() {
-        const icons = document.querySelectorAll(".icon");
-        icons.forEach(icon => {
-            icon.style.margin = Math.random() * 1000 + "px";
-            // icon.style.margin = Math.random() * 100 + "px";
-            icon.style.rotate = Math.random() * 2 + "rad";
-        });
     },
 };
 </script>
@@ -79,23 +52,10 @@ export default {
 body {
     overflow-x: hidden;
 }
+
 .home {
-    padding: 60px 0;
     position: relative;
-}
-
-.coffee-outline-icon .material-design-icon__svg {
-    transform: rotate(2rad);
-}
-
-.food-icon .material-design-icon__svg {
-    transform: rotate(5rad);
-}
-.glass-wine-icon {
-    transform: rotate(1rad);
-}
-
-.beer-outline-icon .material-design-icon__svg {
+    background: linear-gradient(90deg, #000000 -6.12%, rgba(217, 217, 217, 0) 62.42%);
 }
 
 .home-bg {
@@ -103,27 +63,14 @@ body {
     z-index: -999;
     width: 100%;
     top: 0;
-    margin-top: -1px;
     height: 100%;
-}
-
-.bg-icon {
-    position: absolute;
-    display: flex;
-    z-index: -99;
-    opacity: 0.6;
-    top: 0;
-    right: 0;
-    margin-top: 500px;
-    width: 80%;
-    height: 600px;
-}
-
-.bg-icon-item {
 }
 
 .home-inner {
     display: flex;
     justify-content: space-between;
+    padding: 50px 0;
 }
+
+
 </style>

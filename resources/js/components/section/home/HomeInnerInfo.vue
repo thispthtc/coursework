@@ -1,12 +1,14 @@
 <template>
     <div class="home-inner-info">
-        <h1 class="title">Добро пожаловать в</h1>
-        <h1 class="title-white">сердце города</h1>
+        <div class="home-text">
+            <h1 class="title">Добро пожаловать в</h1>
+            <h1 class="title-white">сердце города</h1>
 
-        <p class="subtitle">
-            Все для вас от <br />
-            всего сердца
-        </p>
+            <p class="subtitle">
+                Все для вас от <br />
+                всего сердца
+            </p>
+        </div>
 
         <Button text="Забронировать" />
     </div>
@@ -22,6 +24,12 @@ export default {
 </script>
 
 <style>
+.home-inner-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .title {
     color: white;
     font-size: 48px;
@@ -32,7 +40,7 @@ export default {
 .title-white {
     padding: 10px 5px;
     width: 500px;
-    color: var(--green);
+    color: #006060;
     background-color: white;
     border-radius: 10px;
     text-transform: uppercase;

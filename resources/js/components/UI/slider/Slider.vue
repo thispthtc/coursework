@@ -1,6 +1,6 @@
 <template>
     <div class="slider">
-        <div class="slider-inner">
+        <div class="slider-inner" :style="slide">
             <SliderItem
                 v-for="(sliderItem, index) in SLIDER_ITEMS"
                 :key="index"
@@ -8,21 +8,21 @@
             />
         </div>
         <div class="slider-item-nav">
-            <p class="slider-item-nav-title">Коктели</p>
-            <div class="slider-nav">
-                <chevron-left-icon
-                    class="slider-btn"
-                    :size="44"
-                    :fill-color="color"
-                    @click="prevSlide"
-                />
-                <chevron-right-icon
-                    class="slider-btn"
-                    :size="44"
-                    :fill-color="color"
-                    @click="nextSlide"
-                />
-            </div>
+            <chevron-left-icon
+                class="slider-btn"
+                :size="44"
+                :fill-color="color"
+                @click="prevSlide"
+            />
+
+            <p class="slider-item-nav-title">Напитки</p>
+
+            <chevron-right-icon
+                class="slider-btn"
+                :size="44"
+                :fill-color="color"
+                @click="nextSlide"
+            />
         </div>
     </div>
 </template>
@@ -35,7 +35,7 @@ import TagArrowRightIcon from "vue-material-design-icons/TagArrowRight.vue";
 import ChevronDoubleLeftIcon from "vue-material-design-icons/ChevronDoubleLeft.vue";
 import ChevronLeftIcon from "vue-material-design-icons/ChevronLeft.vue";
 import ChevronRightIcon from "vue-material-design-icons/ChevronRight.vue";
-import SliderItem from "@/components/UI/slider/SliderItem.vue";
+import SliderItem from "../slider/SliderItem.vue";
 
 export default {
     name: "Slider",
@@ -48,28 +48,29 @@ export default {
         ArrowLeftCircleIcon,
     },
     data() {
-        let sliderItems = document.querySelectorAll(".slider-item");
         return {
-            color: "#6CAE4B",
-            currentSlide: sliderItems.length-1
+            color: "#006060",
+            currentSlide: 0,
         };
-    },
-    props: {
-        sliderItem: {
-            type: Object
-        }
     },
     computed: {
         ...mapGetters(["SLIDER_ITEMS"]),
+
+        slide() {
+            return `margin-left: ${this.currentSlide * -100}%`
+        }
     },
     methods: {
         ...mapActions(["GET_ITEMS_FROM_API"]),
 
         nextSlide() {
-            let sliderItems = document.querySelectorAll(".slider-item");
-            console.log(+this.currentSlide)
-            sliderItems[this.currentSlide].style.opacity = "0%"
-            this.currentSlide++
+            if (this.currentSlide === this.SLIDER_ITEMS.length - 1) this.currentSlide = 0
+            else this.currentSlide++
+        },
+
+        prevSlide() {
+            if (this.currentSlide === 0) this.currentSlide = this.SLIDER_ITEMS.length - 1
+            else this.currentSlide--
         }
     },
     mounted() {
@@ -83,36 +84,37 @@ export default {
 <style>
 .slider {
     width: 808px;
+    overflow: hidden;
 }
 
 .slider-inner {
     display: flex;
-    outline: 2px solid var(--green);
-    border-radius: 50px;
-    background-color: white;
+    border-radius: 40px;
+    overflow: hidden;
+    background: white;
 }
-
-
 
 .chevron-right-icon .material-design-icon__svg,
 .chevron-left-icon .material-design-icon__svg {
-    border: 3px solid #6cae4b;
+    margin-top: 2px;
+    border: 3px solid #006060;
     border-radius: 100px;
     cursor: pointer;
-    margin-left: 20px;
 }
 
 .chevron-right-icon .material-design-icon__svg:hover,
 .chevron-left-icon .material-design-icon__svg:hover {
     fill: white;
-    background: #6cae4b;
+    background: #006060;
 }
 
 .slider-item-nav {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-top: 50px;
+    background: white;
+    padding: 10px 30px;
+    border-radius: 40px;
 }
 
 .slider-item-nav-title {
@@ -120,7 +122,7 @@ export default {
     text-transform: uppercase;
     font-family: "Open Sans", sans-serif;
     font-weight: bold;
-    color: var(--green);
+    color: #006060;
     letter-spacing: 0.2em;
 }
 </style>

@@ -1,13 +1,10 @@
 <template>
     <div class="slider-item">
         <div class="slider-item-view">
-            <img
-                class="slider-img"
-                :src="getImageUrl(sliderItem.img)"
-                :alt="image"
-            />
+            <p class="item-id" :style="`color: ${ sliderItem.color }`">{{ sliderItem.id }}</p>
+            <img class="slider-img" :src="getImageUrl(sliderItem.img)" alt="">
             <p class="slider-item-title">{{ sliderItem.title }}</p>
-            <img class="sl-item-bg" :src="getImageUrl('img_1.png')" alt="" />
+            <div class="sl-item-bg" :style="`background-color:${sliderItem.color}`"></div>
         </div>
     </div>
 </template>
@@ -38,29 +35,34 @@ export default {
 </script>
 
 <style scoped>
-.sl-item-bg {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-}
-
 .slider-item {
+    background: white;
     height: 588px;
-    border-radius: 40px;
+    border-radius: 45px;
     position: relative;
 }
 
+.item-id {
+    position: absolute;
+    margin: 30px 50px;
+    font-family: "Open Sans", sans-serif;
+    font-size: 40px;
+    font-weight: bold;
+    opacity: .3;
+}
+
 .slider-item-title {
+    position: absolute;
+    bottom: 0;
     text-transform: uppercase;
-    color: white;
     font-family: "Open Sans", sans-serif;
     font-weight: bold;
     font-size: 20px;
     letter-spacing: 0.2em;
     padding: 30px 50px;
-    background: #559634;
     border-radius: 40px;
     z-index: 1;
+    color: white;
 }
 
 .slider-item-view {
@@ -70,12 +72,25 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     background-color: white;
-    position: absolute;
     border-radius: 40px;
+    overflow: hidden;
 }
 
 .slider-img {
-    height: 500px;
-    z-index: 1;
+    width: 807px;
+    z-index: 78;
+    margin-top: 20px;
+    border-radius: 40px;
+
+}
+
+.sl-item-bg {
+    position: absolute;
+    bottom: 0;
+    background: #006060;
+    width: 779px;
+    height: 180px;
+    margin: 15px;
+    border-radius: 40px;
 }
 </style>

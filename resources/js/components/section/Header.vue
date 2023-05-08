@@ -4,7 +4,6 @@
             <div class="header-inner">
                 <Logo />
                 <NavBar />
-                <OpenFormIcon />
             </div>
         </Container>
     </header>
@@ -24,7 +23,6 @@ export default {
 
 <style>
 .header {
-    background-color: var(--green);
     background-attachment: fixed;
     background-size: cover;
 }

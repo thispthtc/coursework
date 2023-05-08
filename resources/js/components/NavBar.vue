@@ -21,7 +21,7 @@ export default {
 
 .nav-link {
     margin-left: 77px;
-    color: white;
+    color: #006060;
     text-transform: uppercase;
     font-size: 20px;
     font-weight: bold;
@@ -32,7 +32,7 @@ export default {
 
 .nav-link::after {
     content: "";
-    background-color: white;
+    background-color: #006060;
     display: flex;
     text-align: center;
     width: 0;

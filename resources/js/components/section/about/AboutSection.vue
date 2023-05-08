@@ -2,9 +2,6 @@
     <section class="about">
         <Container>
             <div class="about-inner">
-                <TitleSection title="Немного о нас" />
-
-                <AboutSliderInnerInfo />
             </div>
         </Container>
     </section>
@@ -12,12 +9,11 @@
 
 <script>
 import Container from "../../Container.vue";
-import TitleSection from "../../UI/TitleSection.vue";
-import AboutSliderInnerInfo from "./AboutSliderInnerInfo.vue";
+
 
 export default {
     name: "AboutSection",
-    components: { AboutSliderInnerInfo, TitleSection, Container },
+    components: { Container },
 };
 </script>
 
