@@ -24,6 +24,8 @@
                 @click="nextSlide"
             />
         </div>
+
+        <!--    todo: доделать слайдер    -->
     </div>
 </template>
 
@@ -91,7 +93,6 @@ export default {
     display: flex;
     border-radius: 40px;
     overflow: hidden;
-    background: white;
 }
 
 .chevron-right-icon .material-design-icon__svg,
