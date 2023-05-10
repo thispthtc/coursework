@@ -21,6 +21,12 @@ export default {
 
 <style>
 .section-title {
-
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    letter-spacing: .2em;
+    color: #3b7b1a;
+    font-size: 50px;
+    text-transform: uppercase;
+    text-align: center;
 }
 </style>
