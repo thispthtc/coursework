@@ -1,6 +1,10 @@
 <template>
     <div class="m-sl-item">
         <div class="sl-image">
+            <div class="img-bg img-bg1"></div>
+            <div class="img-bg img-bg2"></div>
+            <div class="img-bg img-bg3"></div>
+            <div class="img-bg img-bg4"></div>
             <img :src="getImageUrl('food1.png')" alt="">
         </div>
 
@@ -19,7 +23,6 @@
 
 <script>
 import Button from "@/components/UI/Button.vue";
-
 export default {
     components: {Button},
     methods: {
@@ -37,17 +40,61 @@ export default {
         width: 1360px;
         height: 640px;
         background: white;
-        box-shadow: 10px 10px 100px rgba(58, 99, 72, 0.25);
+        box-shadow: 10px 10px 100px rgba(0, 0, 0, 0.25);
         border-radius: 20px;
-        margin: 75px auto;
+        margin: 75px auto 30px auto;
+    }
+
+    .m-sl-item:hover {
+        box-shadow: 10px 10px 100px rgba(0, 0, 0, 0.35);
+        cursor: pointer;
+    }
+
+    .img-bg {
+        background: #6CAE4B;
+        border-radius: 50%;
+        position: absolute;
+        z-index: 0;
+    }
+
+    .img-bg1 {
+        width: 155px;
+        height: 155px;
+        margin-left: 20%;
+        margin-top: 5%;
+    }
+
+    .img-bg2 {
+        margin-left: 75%;
+        margin-bottom: 5%;
+    }
+
+    .img-bg3 {
+        margin-left: 15%;
+        margin-top: 60%;
+    }
+
+    .img-bg4 {
+        width: 134px;
+        height: 134px;
+        margin-left: 65%;
+        margin-top: 60%;
+    }
+
+    .img-bg2, .img-bg3 {
+        width: 63px;
+        height: 63px;
     }
 
     .sl-image {
+        position: relative;
         width: 50%;
         display: flex;
     }
 
     .sl-image img {
+        z-index: 2;
+
         width: 520px;
         margin: 0 auto;
     }
