@@ -1,7 +1,7 @@
 <template>
     <div class="m-sl-nav">
-        <button class="active">Рис с брокколи</button>
-        <button>салат с авакадо</button>
+        <button id="0" @click="toggleNav" class="active">Рис с брокколи</button>
+        <button id="1" @click="toggleNav">салат с авакадо</button>
         <button>салат с авакадо</button>
         <button>салат с авакадо</button>
         <button>салат с авакадо</button>
@@ -9,7 +9,32 @@
 </template>
 
 <script>
-export default {}
+export default {
+    data() {
+        return {
+
+        }
+    },
+    methods: {
+        toggleNav(event) {
+            let sliderItems = document.querySelectorAll('.m-sl-item')
+
+            sliderItems.forEach(item => {
+                if (item.classList.contains('active-item')) {
+                    item.classList.remove('active-item')
+                    item.classList.add('hidden-item')
+                }
+            })
+
+            console.log(getComputedStyle(sliderItems[event.target.id]).display)
+
+            if (sliderItems[event.target.id].classList.contains('hidden-item')) {
+                sliderItems[event.target.id].classList.remove('hidden-item')
+                sliderItems[event.target.id].classList.add('active-item')
+            }
+        }
+    }
+}
 </script>
 
 <style>
