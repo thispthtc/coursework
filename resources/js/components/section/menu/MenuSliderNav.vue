@@ -1,18 +1,22 @@
 <template>
-    <div class="m-sl-nav">
-        <button id="0" @click="toggleNav" class="active">Рис с брокколи</button>
-        <button id="1" @click="toggleNav">салат с авакадо</button>
-        <button>салат с авакадо</button>
-        <button>салат с авакадо</button>
-        <button>салат с авакадо</button>
-    </div>
+    <button :id="index-1" @click="toggleNav" class="active">Рис с брокколи</button>
 </template>
 
 <script>
+
+
 export default {
+    computed: {
+    },
     data() {
         return {
 
+        }
+    },
+    props: {
+        index: {
+            type: Number,
+            require: true
         }
     },
     methods: {

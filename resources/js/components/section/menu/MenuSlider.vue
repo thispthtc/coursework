@@ -2,7 +2,9 @@
     <div class="menu-slider">
         <img class="m-bg" :src="getImageUrl('bg-slider.png')" alt="">
         <MenuSliderItem/>
-        <MenuSliderNav/>
+        <div class="m-sl-nav">
+            <MenuSliderNav v-for="i in 5" :key="i" :index="i" />
+        </div>
     </div>
 </template>
 
