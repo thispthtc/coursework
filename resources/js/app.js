@@ -8,6 +8,7 @@ import "./bootstrap";
 import { createApp } from "vue";
 import router from "./router";
 import store from "./store";
+import getImageMixin from "@/helpers/getImageMixin";
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -19,6 +20,8 @@ const app = createApp({});
 
 app.use(router);
 app.use(store);
+
+app.mixin(getImageMixin)
 
 /**
  * The following block of code may be used to automatically register your
