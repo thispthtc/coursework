@@ -2,8 +2,8 @@
     <div class="slider-item">
         <div class="slider-item-view">
             <p class="item-id" :style="`color: ${ sliderItem.color }`">{{ sliderItem.id }}</p>
-            <img class="slider-img" :src="getImageUrl(sliderItem.img)" alt="">
-            <p class="slider-item-title">{{ sliderItem.title }}</p>
+            <img class="slider-img" :src="getImageUrl(sliderItem.src_img)" alt="">
+            <p class="slider-item-title">{{ sliderItem.name }}</p>
             <div class="sl-item-bg" :style="`background-color:${sliderItem.color}`"></div>
         </div>
     </div>
@@ -30,7 +30,8 @@ export default {
         },
     },
     computed: {},
-    mounted() {},
+    mounted() {
+    },
 };
 </script>
 
