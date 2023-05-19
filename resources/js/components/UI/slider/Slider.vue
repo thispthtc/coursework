@@ -2,7 +2,7 @@
     <div class="slider">
         <div class="slider-inner" :style="slide">
             <SliderItem
-                v-for="(sliderItem, index) in SLIDER_ITEMS"
+                v-for="(sliderItem, index) in MENU_ITEMS_BY_CATEGORY[0]"
                 :key="index"
                 :slider-item="sliderItem"
             />
@@ -56,28 +56,30 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["SLIDER_ITEMS"]),
+        ...mapGetters(["MENU_ITEMS_BY_CATEGORY"]),
 
         slide() {
             return `margin-left: ${this.currentSlide * -100}%`
         }
     },
     methods: {
-        ...mapActions(["GET_ITEMS_FROM_API"]),
+        ...mapActions(["GET_CATEGORY_MENU_FROM_API"]),
 
         nextSlide() {
-            if (this.currentSlide === this.SLIDER_ITEMS.length - 1) this.currentSlide = 0
+            if (this.currentSlide === this.MENU_ITEMS_BY_CATEGORY.length - 1) this.currentSlide = 0
             else this.currentSlide++
         },
 
         prevSlide() {
-            if (this.currentSlide === 0) this.currentSlide = this.SLIDER_ITEMS.length - 1
+            if (this.currentSlide === 0) this.currentSlide = this.MENU_ITEMS_BY_CATEGORY.length - 1
             else this.currentSlide--
         }
     },
     mounted() {
-        this.GET_ITEMS_FROM_API().then((response) => {
+        this.GET_CATEGORY_MENU_FROM_API("3").then((response) => {
             if (response.data) console.log(response.data);
+        }).catch(error => {
+            return error
         });
     },
 };
