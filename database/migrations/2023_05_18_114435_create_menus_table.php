@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_category');
-            $table->string('name', 20);
+            $table->string('name', 50);
             $table->text('description')->nullable();
             $table->unsignedBigInteger('weight');
             $table->string('src_img', 50);
