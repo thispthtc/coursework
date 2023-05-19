@@ -1,10 +1,8 @@
 <template>
-    <button :id="index-1" @click="toggleNav" class="active">Рис с брокколи</button>
+    <button :id="index-3" @click="toggleNav" class='' >{{ menuItem.name }}</button>
 </template>
 
 <script>
-
-
 export default {
     computed: {
     },
@@ -15,13 +13,23 @@ export default {
     },
     props: {
         index: {
-            type: Number,
+            type: String,
+            require: true
+        },
+        menuItem: {
+            type: Object,
             require: true
         }
     },
     methods: {
         toggleNav(event) {
+            console.log(this.first);
             let sliderItems = document.querySelectorAll('.m-sl-item')
+            let navItems = document.querySelectorAll('.m-sl-nav button')
+
+            navItems.forEach(item => {
+                item.classList.remove('active')
+            })
 
             sliderItems.forEach(item => {
                 if (item.classList.contains('active-item')) {
@@ -33,6 +41,7 @@ export default {
             console.log(getComputedStyle(sliderItems[event.target.id]).display)
 
             if (sliderItems[event.target.id].classList.contains('hidden-item')) {
+                event.target.classList.add('active')
                 sliderItems[event.target.id].classList.remove('hidden-item')
                 sliderItems[event.target.id].classList.add('active-item')
             }

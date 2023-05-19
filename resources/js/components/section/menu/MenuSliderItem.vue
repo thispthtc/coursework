@@ -1,5 +1,6 @@
 <template>
     <div class="m-sl-item hidden-item">
+
         <div class="sl-image">
             <div class="img-bg img-bg1"></div>
             <div class="img-bg img-bg2"></div>
@@ -20,6 +21,10 @@
         </div>
     </div>
 </template>
+
+
+<!-- todo: доделать фон -->
+
 
 <script>
 import Button from "@/components/UI/Button.vue";
@@ -52,6 +57,7 @@ export default {
         box-shadow: 10px 10px 100px rgba(0, 0, 0, 0.25);
         border-radius: 20px;
         margin: 75px auto 30px auto;
+        position: relative;
     }
 
     .m-sl-item:hover {

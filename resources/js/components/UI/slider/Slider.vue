@@ -2,7 +2,7 @@
     <div class="slider">
         <div class="slider-inner" :style="slide">
             <SliderItem
-                v-for="(sliderItem, index) in MENU_ITEMS_BY_CATEGORY[0]"
+                v-for="(sliderItem, index) in MENU_ITEMS_FOR_SLIDER"
                 :key="index"
                 :slider-item="sliderItem"
             />
@@ -56,27 +56,27 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["MENU_ITEMS_BY_CATEGORY"]),
+        ...mapGetters(["MENU_ITEMS_FOR_SLIDER"]),
 
         slide() {
             return `margin-left: ${this.currentSlide * -100}%`
         }
     },
     methods: {
-        ...mapActions(["GET_CATEGORY_MENU_FROM_API"]),
+        ...mapActions(["GET_SLIDER_MENU_FROM_API"]),
 
         nextSlide() {
-            if (this.currentSlide === this.MENU_ITEMS_BY_CATEGORY.length - 1) this.currentSlide = 0
+            if (this.currentSlide === this.MENU_ITEMS_FOR_SLIDER.length - 1) this.currentSlide = 0
             else this.currentSlide++
         },
 
         prevSlide() {
-            if (this.currentSlide === 0) this.currentSlide = this.MENU_ITEMS_BY_CATEGORY.length - 1
+            if (this.currentSlide === 0) this.currentSlide = this.MENU_ITEMS_FOR_SLIDER.length - 1
             else this.currentSlide--
         }
     },
     mounted() {
-        this.GET_CATEGORY_MENU_FROM_API("3").then((response) => {
+        this.GET_SLIDER_MENU_FROM_API("1").then((response) => {
             if (response.data) console.log(response.data);
         }).catch(error => {
             return error

@@ -2,12 +2,17 @@
     <div class="menu-slider">
         <img class="m-bg" :src="getImageUrl('bg-slider.png')" alt="">
         <MenuSliderItem
-            v-for="(menuItem, index) in MENU_ITEMS_BY_CATEGORY[1]"
+            v-for="(menuItem, index) in MENU_ITEMS_BY_CATEGORY"
             :key="index"
             :menu-item="menuItem"
         />
         <div class="m-sl-nav">
-            <MenuSliderNav v-for="i in 5" :key="i" :index="i" />
+            <MenuSliderNav
+                v-for="(menuItem, index) in MENU_ITEMS_BY_CATEGORY"
+                :key="index"
+                :index="index"
+                :menu-item="menuItem"
+            />
         </div>
     </div>
 </template>
@@ -33,7 +38,7 @@ export default {
     mounted() {
 
 
-        this.GET_CATEGORY_MENU_FROM_API("4").then(response => {
+        this.GET_CATEGORY_MENU_FROM_API("2").then(response => {
             if (response.data) console.log(response.data)
         }).catch(error => {
             console.log(error)
