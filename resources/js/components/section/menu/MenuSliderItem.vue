@@ -1,41 +1,20 @@
 <template>
-    <div class="m-sl-item active-item">
-        <div class="sl-image">
-            <div class="img-bg img-bg1"></div>
-            <div class="img-bg img-bg2"></div>
-            <div class="img-bg img-bg3"></div>
-            <div class="img-bg img-bg4"></div>
-            <img :src="getImageUrl('food1.png')" alt="">
-        </div>
-
-        <div class="sl-item-info">
-            <h2 class="info-title">Рис с брокколи</h2>
-
-            <p class="info-description">рис с брокколи - это простое блюдо, которое состоит из отварного или жареного риса, смешанного с отварным или запеченным брокколи.</p>
-
-            <div class="info-extend">
-                <p class="info-weird">320г</p>
-                <Button class="menu-btn" text="Подробнее"/>
-            </div>
-        </div>
-    </div>
-
     <div class="m-sl-item hidden-item">
         <div class="sl-image">
             <div class="img-bg img-bg1"></div>
             <div class="img-bg img-bg2"></div>
             <div class="img-bg img-bg3"></div>
             <div class="img-bg img-bg4"></div>
-            <img :src="getImageUrl('food1.png')" alt="">
+            <img :src="getImageUrl(menuItem.src_img)" alt="">
         </div>
 
         <div class="sl-item-info">
-            <h2 class="info-title">Рис с брокколи1</h2>
+            <h2 class="info-title">{{ menuItem.name }}</h2>
 
-            <p class="info-description">рис с брокколи - это простое блюдо, которое состоит из отварного или жареного риса, смешанного с отварным или запеченным брокколи.</p>
+            <p class="info-description">{{ menuItem.description }}</p>
 
             <div class="info-extend">
-                <p class="info-weird">320г</p>
+                <p class="info-weird">{{ menuItem.weight }}</p>
                 <Button class="menu-btn" text="Подробнее"/>
             </div>
         </div>
@@ -51,6 +30,14 @@ export default {
         getImageUrl: filename => {
             return import.meta.env.VITE_APP_IMAGE_PATH + filename
         }
+    },
+    props: {
+        menuItem: {
+            type: Object,
+            require: true
+        }
+    },
+    mounted() {
     }
 }
 </script>

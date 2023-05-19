@@ -1,8 +1,8 @@
 import { createStore } from "vuex";
-import slider from "./modules/slider";
+import menu from "./modules/menu";
 
 export default createStore({
     modules: {
-        slider,
+        menu,
     },
 });
