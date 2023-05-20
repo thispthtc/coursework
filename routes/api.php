@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\MenuCategoryController;
 use App\Http\Controllers\Api\MenuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,5 +20,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+// Меню
 Route::get('/menu', [MenuController::class, 'index']);
 Route::get('/menu/{category}', [MenuController::class, 'show']);
+
+// Катерогории меню
+Route::get('/menu_category', [MenuCategoryController::class, 'index']);

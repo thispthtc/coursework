@@ -10,7 +10,6 @@
             <MenuSliderNav
                 v-for="(menuItem, index) in MENU_ITEMS_BY_CATEGORY"
                 :key="index"
-                :index="index"
                 :menu-item="menuItem"
             />
         </div>
@@ -18,10 +17,6 @@
 </template>
 
 <script>
-import MenuSliderItem from "@/components/section/menu/MenuSliderItem.vue";
-import MenuSliderNav from "@/components/section/menu/MenuSliderNav.vue";
-import {mapActions, mapGetters} from "vuex";
-
 export default {
     components: {MenuSliderItem, MenuSliderNav},
     computed: {
@@ -30,21 +25,32 @@ export default {
     methods: {
         ...mapActions(["GET_CATEGORY_MENU_FROM_API"]),
 
-
         getImageUrl: filename => {
             return import.meta.env.VITE_APP_IMAGE_PATH + filename
         }
     },
+    props: {
+        category: {
+            type: String,
+            require: false,
+            default() {
+                return "2"
+            }
+        }
+    },
     mounted() {
-
-
-        this.GET_CATEGORY_MENU_FROM_API("2").then(response => {
+        this.GET_CATEGORY_MENU_FROM_API(this.category).then(response => {
+            console.log(response)
             if (response.data) console.log(response.data)
         }).catch(error => {
             console.log(error)
         })
     }
 }
+import MenuSliderItem from "@/components/section/menu/MenuSliderItem.vue";
+import MenuSliderNav from "@/components/section/menu/MenuSliderNav.vue";
+
+import {mapActions, mapGetters} from "vuex";
 </script>
 
 <style>

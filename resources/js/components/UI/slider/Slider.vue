@@ -53,6 +53,7 @@ export default {
         return {
             color: "#006060",
             currentSlide: 0,
+            category: 4
         };
     },
     computed: {

@@ -1,24 +1,65 @@
 <template>
     <section class="main-menu">
 
-        <div class="menu-category-nav">
-            <button class="m-c-btn">Напитки</button>
-            <button class="m-c-btn m-c-btn-active">Актуальное</button>
-            <button class="m-c-btn">Супы</button>
-            <button class="m-c-btn">Десерты</button>
-            <button class="m-c-btn">Салаты</button>
+        <div class="menu-category-nav" >
+            <button
+                v-for="(category) in MENU_LIST_CATEGORY"
+                data-index=""
+                class="m-c-btn"
+                @click="changeMenu"
+            >
+            {{ category.name }}
+            </button>
         </div>
 
-        <MenuSlider class="main-menu-slider"/>
+        <MenuSlider :category="category" class="main-menu-slider"/>
     </section>
 </template>
 
 <script>
 import MenuSlider from "@/components/section/menu/MenuSlider.vue";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     components: {MenuSlider},
+    data() {
+        return {
+            category: "2",
+            index: "1"
+        }
+    },
+    computed: {
+        ...mapGetters(["MENU_ITEMS_BY_CATEGORY", "MENU_LIST_CATEGORY"])
+    },
+    methods: {
+        ...mapActions(["GET_CATEGORY_MENU_FROM_API", "GET_MENU_LIST_CATEGORY"]),
 
+        changeMenu(e) {
+            let menuBtn = document.querySelectorAll('.m-c-btn')
+
+            menuBtn.forEach(item => {
+                item.classList.remove('m-c-btn-active')
+            })
+
+            this.category = e.target.dataset.index
+            e.target.classList.add('m-c-btn-active')
+            this.GET_CATEGORY_MENU_FROM_API(this.category)
+        }
+    },
+    mounted: function () {
+        let menuBtns = document.querySelectorAll('.m-c-btn')
+        menuBtns.forEach((item) => {
+            item.dataset.index = this.index
+            this.index = parseInt(this.index)
+            this.index++
+        })
+
+        this.GET_MENU_LIST_CATEGORY().then(response => {
+            if (response.data) console.log(response.data)
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 }
 </script>
 
@@ -40,7 +81,7 @@ export default {
     .menu-category-nav {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        padding: 0 15px;
     }
 
     .m-c-btn {

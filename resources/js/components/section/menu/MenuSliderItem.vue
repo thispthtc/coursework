@@ -40,7 +40,7 @@ export default {
         menuItem: {
             type: Object,
             require: true
-        }
+        },
     },
     mounted() {
     }
@@ -59,6 +59,7 @@ export default {
         margin: 75px auto 30px auto;
         position: relative;
     }
+
 
     .m-sl-item:hover {
         box-shadow: 10px 10px 100px rgba(0, 0, 0, 0.35);

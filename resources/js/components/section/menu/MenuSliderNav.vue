@@ -1,5 +1,5 @@
 <template>
-    <button :id="index-3" @click="toggleNav" class='' >{{ menuItem.name }}</button>
+    <button id="" @click="toggleNav" class='' >{{ menuItem.name }}</button>
 </template>
 
 <script>
@@ -8,14 +8,10 @@ export default {
     },
     data() {
         return {
-
+            index: 0
         }
     },
     props: {
-        index: {
-            type: String,
-            require: true
-        },
         menuItem: {
             type: Object,
             require: true
@@ -38,14 +34,28 @@ export default {
                 }
             })
 
-            console.log(getComputedStyle(sliderItems[event.target.id]).display)
-
             if (sliderItems[event.target.id].classList.contains('hidden-item')) {
+                console.log(event.target.dataset.index)
                 event.target.classList.add('active')
                 sliderItems[event.target.id].classList.remove('hidden-item')
                 sliderItems[event.target.id].classList.add('active-item')
             }
+
+            console.log(getComputedStyle(sliderItems[event.target.id]).display)
         }
+    },
+    mounted() {
+        let navItems = document.querySelectorAll('.m-sl-nav button')
+        let sliderItem = document.querySelector('.m-sl-item')
+
+        navItems[0].classList.add('active')
+        sliderItem.classList.add('active-item')
+
+        navItems.forEach(item => {
+            item.id = this.index
+            console.log(this.index)
+            this.index++
+        })
     }
 }
 </script>
