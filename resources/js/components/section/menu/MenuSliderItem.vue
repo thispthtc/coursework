@@ -110,8 +110,7 @@ export default {
 
     .sl-image img {
         z-index: 2;
-
-        width: 520px;
+        height: 516px;
         margin: 0 auto;
     }
 

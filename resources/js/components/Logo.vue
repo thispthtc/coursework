@@ -1,5 +1,6 @@
 <template>
-      <img class="logo" :src="getImgUrl('logo.png')"  alt="">
+    <img class="logo" v-if="theme === 'dark'" :src="getImgUrl('logo-dark.png')" alt="">
+    <img class="logo" v-else :src="getImgUrl('logo.png')"  alt="">
 </template>
 
 <script>
@@ -8,6 +9,11 @@ export default {
     methods: {
         getImgUrl: filename => {
             return import.meta.env.VITE_APP_IMAGE_PATH + filename
+        }
+    },
+    props: {
+        theme: {
+            type: String
         }
     }
 };

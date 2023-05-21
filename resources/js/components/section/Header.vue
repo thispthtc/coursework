@@ -2,7 +2,7 @@
     <header class="header">
         <Container>
             <div class="header-inner">
-                <Logo />
+                <Logo :theme="theme" />
                 <NavBar />
             </div>
         </Container>
@@ -18,6 +18,11 @@ import Container from "../Container.vue";
 export default {
     name: "Header",
     components: { Container, OpenFormIcon, NavBar, Logo },
+    props: {
+        theme: {
+            type: String
+        }
+    }
 };
 </script>
 

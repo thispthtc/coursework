@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\MenuCategoryController;
 use App\Http\Controllers\Api\MenuController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,7 @@ Route::get('/menu/{category}', [MenuController::class, 'show']);
 
 // Катерогории меню
 Route::get('/menu_category', [MenuCategoryController::class, 'index']);
+
+// Заказы
+Route::get('/order', [OrderController::class, 'index']);
+Route::post('/send_order', [OrderController::class, 'store']);

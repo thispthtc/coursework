@@ -2,9 +2,7 @@
     <nav class="header-nav">
         <router-link class="nav-link" to="/">Главная</router-link>
         <router-link class="nav-link" to="/menu">Меню</router-link>
-        <router-link class="nav-link" to="/blog">Блог</router-link>
-        <router-link class="nav-link" to="/about">О нас</router-link>
-        <router-link class="nav-link" to="/contact">Контакты</router-link>
+        <router-link class="nav-link" to="/order">Забронировать</router-link>
     </nav>
 </template>
 
