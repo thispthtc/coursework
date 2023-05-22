@@ -12,12 +12,12 @@
 
         <div class="guest-count">
             <label for="guest-count">Кол-во гостей</label>
-            <input id="guest-count" type="text" v-model="count">
+            <input id="guest-count" type="number" v-model="count">
         </div>
 
         <div class="date">
             <label for="date">Дата</label>
-            <input id="date" type="text" v-model="date">
+            <input id="date" type="date" v-model="date">
         </div>
 
         <div class="description">
@@ -40,7 +40,7 @@ export default {
             fullname: '',
             phone: '',
             count: 0,
-            date: Date.now(),
+            date: null,
             description: '',
         }
     },
@@ -56,8 +56,16 @@ export default {
                 description: this.description,
             }
 
-            console.log(formData)
+            // let formData = new FormData();
+            //
+            // formData.append('fullname',this.fullname)
+            // formData.append('phone', this.phone)
+            // formData.append('count', this.count)
+            // formData.append('date', this.date)
+            // formData.append('description', this.description)
 
+            console.log(formData)
+            console.log(this.date)
             this.SEND_ORDER_TO_API(formData)
         }
     }

@@ -31,4 +31,4 @@ Route::get('/menu_category', [MenuCategoryController::class, 'index']);
 
 // Заказы
 Route::get('/order', [OrderController::class, 'index']);
-Route::post('/send_order', [OrderController::class, 'store']);
+Route::post('/order', [OrderController::class, 'store']);

@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('full_name', 50);
-            $table->string('number', 12);
+            $table->string('number', 255);
             $table->unsignedInteger('guest_count');
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });
