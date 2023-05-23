@@ -12,7 +12,6 @@ export default {
     },
     actions: {
         SEND_ORDER_TO_API({commit}, order) {
-            debugger
             return axios({
                 method: "POST",
                 url: "api/order",

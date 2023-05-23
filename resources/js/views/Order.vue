@@ -26,6 +26,15 @@ export default {
 
 <style>
     .order-page {
+        position: relative;
         background: linear-gradient(90deg, #000000 -6.12%, rgba(217, 217, 217, 0) 62.42%);
+    }
+
+    .order-page .home-bg {
+        height: 100%;
+    }
+
+    .order-page .container {
+        padding: 20px 0;
     }
 </style>
