@@ -3,6 +3,7 @@
         <router-link class="nav-link" to="/">Главная</router-link>
         <router-link class="nav-link" to="/menu">Меню</router-link>
         <router-link class="nav-link" to="/order">Забронировать</router-link>
+        <router-link class="nav-link" to="/admin">Админ</router-link>
     </nav>
 </template>
 
