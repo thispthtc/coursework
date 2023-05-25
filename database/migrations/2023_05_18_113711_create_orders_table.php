@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('guest_count');
             $table->date('date')->nullable();
             $table->text('description')->nullable();
+            $table->string('status')->default('новый');
             $table->timestamps();
         });
     }

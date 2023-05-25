@@ -21,7 +21,6 @@ export default {
                 }
             }).then(response => {
                 commit("SET_ORDER_TO_API", response.data)
-                console.log(response.data)
             }).catch(e => {
                 console.log(e)
             })
