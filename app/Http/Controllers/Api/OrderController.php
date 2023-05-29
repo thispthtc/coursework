@@ -44,6 +44,12 @@ class OrderController extends Controller
         return response()->json($order);
     }
 
+    public function showStatus(string $status): JsonResponse
+    {
+        $order = Order::all()->where('status', $status);
+        return response()->json($order);
+    }
+
     /**
      * Update the specified resource in storage.
      */

@@ -37,11 +37,10 @@ Route::get('/menu_category', [MenuCategoryController::class, 'index']);
 Route::post('/menu_category', [MenuCategoryController::class, 'store']);
 Route::delete('/menu_category/{id}', [MenuCategoryController::class, 'destroy']);
 
-
-
 // Заказы
 Route::get('/order', [OrderController::class, 'index']);
 Route::get('/order/{id}', [OrderController::class, 'show']);
+Route::get('/order/status/{status}', [OrderController::class, 'showStatus']);
 Route::post('/order', [OrderController::class, 'store']);
 Route::patch('/order/{id}', [OrderController::class, 'update']);
 

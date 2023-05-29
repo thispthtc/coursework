@@ -51,6 +51,16 @@ export default {
             }).catch(e => {
                 console.log(e)
             })
+        },
+        GET_ORDER_BY_STATUS({commit}, status) {
+            return axios({
+                method: "GET",
+                url: `api/order/status/${status}`
+            }).then(response => {
+                commit("SET_ORDER_FROM_API", response.data)
+            }).catch(e => {
+                console.log(e)
+            })
         }
     }
 }

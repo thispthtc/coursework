@@ -23,9 +23,9 @@
                             <input id="search" type="text">
                         </div>
                         <div class="status-filter">
-                            <button @click="selectStatus('новый')" class="status-btn new">Новый</button>
-                            <button class="status-btn accept">Принят</button>
-                            <button class="status-btn finish">Завершен</button>
+                            <button @click="selectStatus('новый')" class="status-btn new" :class="filter === 'new' ? 'new-active' : ''">Новый</button>
+                            <button @click="selectStatus('принят')" class="status-btn accept" :class="filter === 'accept' ? 'accept-active' : ''">Принят</button>
+                            <button @click="selectStatus('завершен')" class="status-btn finish" :class="filter === 'finish' ? 'finish-active' : ''">Завершен</button>
                         </div>
                     </div>
 
@@ -79,14 +79,14 @@ export default {
     data() {
         return {
             section: "заказы",
-            newOrder: []
+            filter: null
         }
     },
     computed: {
         ...mapGetters(['ORDER']),
     },
     methods: {
-        ...mapActions(['GET_ORDER_FROM_API', "CHANGE_STATUS"]),
+        ...mapActions(['GET_ORDER_FROM_API', "CHANGE_STATUS", "GET_ORDER_BY_STATUS"]),
 
         toggleItem(event) {
             let panel = document.querySelectorAll('.info-panel')
@@ -127,7 +127,26 @@ export default {
                 console.log(error)
             })
         },
+        selectStatus(status) {
+            switch (status) {
+                case 'новый':
+                    this.filter = 'new';
+                    break
+                case 'принят':
+                    this.filter = 'accept';
+                    break
+                case 'завершен':
+                    this.filter = 'finish';
+                    break
+            }
+            this.GET_ORDER_BY_STATUS(status).then(response => {
+                console.log(response)
+            }).catch(error => {
+                console.log(error)
+            })
+        }
     },
+
     mounted() {
         this.GET_ORDER_FROM_API().then(response => {
         }).catch(error => {
@@ -311,17 +330,17 @@ export default {
     }
 
     .new-active {
-        color: white;
+        color: white !important;
         background: #6CAE4B;
     }
 
     .accept-active {
-        color: white;
+        color: white !important;
         background: #2F67F9;
     }
 
     .finish-active {
-        color: white;
+        color: white !important;
         background: #d4d4d4;
     }
 
