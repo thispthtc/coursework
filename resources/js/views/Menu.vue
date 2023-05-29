@@ -1,6 +1,6 @@
 <template>
     <div class="menu-page">
-        <img class="home-bg" :src="getImageUrl('bg.jpg')" alt="">
+        <img class="home-bg" :src="getImageUrl('conts/bg.jpg')" alt="">
         <Header/>
         <Container>
             <MainMenuSection/>

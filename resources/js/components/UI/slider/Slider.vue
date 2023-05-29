@@ -49,22 +49,22 @@ export default {
         TagArrowRightIcon,
         ArrowLeftCircleIcon,
     },
-    data() {
-        return {
-            color: "#006060",
-            currentSlide: 0,
-            category: 4
-        };
-    },
     computed: {
-        ...mapGetters(["MENU_ITEMS_FOR_SLIDER"]),
+        ...mapGetters(["MENU_ITEMS_FOR_SLIDER", "MENU_LIST_CATEGORY"]),
 
         slide() {
             return `margin-left: ${this.currentSlide * -100}%`
         }
     },
+    data() {
+        return {
+            color: "#006060",
+            currentSlide: 0,
+            categoryItem: null
+        };
+    },
     methods: {
-        ...mapActions(["GET_SLIDER_MENU_FROM_API"]),
+        ...mapActions(["GET_SLIDER_MENU_FROM_API", "GET_MENU_LIST_CATEGORY"]),
 
         nextSlide() {
             if (this.currentSlide === this.MENU_ITEMS_FOR_SLIDER.length - 1) this.currentSlide = 0
@@ -74,11 +74,19 @@ export default {
         prevSlide() {
             if (this.currentSlide === 0) this.currentSlide = this.MENU_ITEMS_FOR_SLIDER.length - 1
             else this.currentSlide--
+        },
+        getCategory() {
+
         }
     },
+    beforeUpdate() {
+
+    },
+    created() {
+
+    },
     mounted() {
-        this.GET_SLIDER_MENU_FROM_API("1").then((response) => {
-            if (response.data) console.log(response.data);
+        this.GET_SLIDER_MENU_FROM_API("2").then((response) => {
         }).catch(error => {
             return error
         });

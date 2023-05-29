@@ -2,11 +2,10 @@
     <section class="admin-page">
         <Container>
             <header class="admin-header">
-                <h1>сердце города</h1>
+                <h1><router-link to="/">сердце города</router-link></h1>
 
                 <nav class="admin-nav">
                     <div class="admin-btn">
-                        <div class="notif">+100</div>
                         <button class="admin-link admin-link-active" @click="switchSection">заказы</button>
                     </div>
 
@@ -17,7 +16,6 @@
             </header>
 
             <div class="admin-inner">
-
                 <div v-if="section === 'заказы'" class="order-inner">
                     <div class="order-filter">
                         <div class="search-div">
@@ -25,40 +23,46 @@
                             <input id="search" type="text">
                         </div>
                         <div class="status-filter">
-                            <button class="status-btn new">Новый</button>
+                            <button @click="selectStatus('новый')" class="status-btn new">Новый</button>
                             <button class="status-btn accept">Принят</button>
                             <button class="status-btn finish">Завершен</button>
                         </div>
                     </div>
 
-                    <div class="admin-order-item" @click="toggleItem">
+                    <div
+                        class="admin-order-item"
+                        @click="toggleItem"
+                        v-for="(orderItem, index) in ORDER"
+                        :key="index"
+                    >
                         <div class="main-info">
-                            <p class="main-info-item">ФИО: Мурашкин Игорь Викторвич</p>
-                            <p class="main-info-item">ТЕЛ: +79994432129</p>
-                            <p class="main-info-item">КОЛ-ВО: 12</p>
-                            <p class="main-info-item">ДАТА: 12.06.23</p>
+                            <p class="main-info-item">ФИО: {{ orderItem.full_name }}</p>
+                            <p class="main-info-item">ТЕЛ: {{ orderItem.number }}</p>
+                            <p class="main-info-item">КОЛ-ВО: {{ orderItem.guest_count }}</p>
+                            <p class="main-info-item">ДАТА: {{ orderItem.date }}</p>
 
                             <chevron-down-icon class="down-list" :size="44" />
                         </div>
 
                         <div class="info-panel hidden">
                             <div class="order-description">
-                                <p>123</p>
+                                <p>{{ orderItem.description }}</p>
                             </div>
 
                             <div class="status">
-                                <button class="status-btn new new-active">Новый</button>
-                                <button class="status-btn accept">Принят</button>
-                                <button class="status-btn finish">Завершен</button>
+                                <button class="status-btn"  @click.prevent="changeStatus('новый', orderItem.id)" :class="orderItem.status === 'новый' ? 'new-active' : '' " >Новый</button>
+                                <button class="status-btn"  @click.prevent="changeStatus('принят', orderItem.id)" :class="orderItem.status === 'принят' ? 'accept-active' : ''">Принят</button>
+                                <button class="status-btn"  @click.prevent="changeStatus('завершен', orderItem.id)" :class="orderItem.status === 'завершен' ? 'finish-active' : ''">Завершен</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div v-else class="menu-inner">
-                    <MainMenuSection/>
+                <div v-if="section === 'меню'" class="menu-inner">
+                    <MainMenuSection
+                        :admin="true"
+                    />
                 </div>
-
             </div>
         </Container>
     </section>
@@ -68,21 +72,27 @@
 import Container from "@/components/Container.vue";
 import ChevronDownIcon from "vue-material-design-icons/ChevronDown.vue";
 import MainMenuSection from "@/components/menuSections/MainMenuSection.vue";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     components: {MainMenuSection, ChevronDownIcon, Container},
     data() {
         return {
-            section: "заказы"
+            section: "заказы",
+            newOrder: []
         }
     },
+    computed: {
+        ...mapGetters(['ORDER']),
+    },
     methods: {
+        ...mapActions(['GET_ORDER_FROM_API', "CHANGE_STATUS"]),
+
         toggleItem(event) {
             let panel = document.querySelectorAll('.info-panel')
             let item = document.querySelectorAll('.admin-order-item')
             let info = document.querySelectorAll('.main-info')
 
-            console.log(event.target)
             for (let i = 0; i < item.length; i++) {
                 if (event.target === item[i] || event.target === info[i]) {
                     panel[i].classList.toggle('hidden')
@@ -100,12 +110,47 @@ export default {
                     this.section = event.target.innerHTML
                 }
             })
-        }
-    }
+        },
+        changeStatus(status, id) {
+            const statusData = {
+                status: status,
+                id: id
+            }
+            this.CHANGE_STATUS(statusData).then(response => {
+            }).catch(error => {
+                console.log(error)
+
+            })
+
+            this.GET_ORDER_FROM_API().then(response => {
+            }).catch(error => {
+                console.log(error)
+            })
+        },
+    },
+    mounted() {
+        this.GET_ORDER_FROM_API().then(response => {
+        }).catch(error => {
+            console.log(error)
+        })
+
+    },
 }
 </script>
 
 <style>
+    .menu-inner .m-c-btn {
+        box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .menu-inner .add {
+        padding: 20px 0;
+        justify-content: center;
+    }
+
     .order-filter {
         display: flex;
         justify-content: space-between;
@@ -136,8 +181,12 @@ export default {
         padding: 10px 15px;
     }
 
-    .admin-link:first-child {
-        margin: 0;
+    .admin-btn:last-child {
+        margin-right: 0;
+    }
+
+    .admin-link:last-child {
+        margin-right: 0;
     }
 
     .status-filter .status-btn {
@@ -167,25 +216,9 @@ export default {
         display: flex;
     }
 
-    .notif {
-        position: absolute;
-        top: -25%;
-        left: -10%;
-        width: 50px;
-        height: 50px;
-        background: #6CAE4B;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-weight: bold;
-        font-size: 14px;
-        font-family: "Open Sans", sans-serif;
-    }
-
     .admin-btn {
         position: relative;
+        margin-right: 50px;
     }
 
     .hidden {
@@ -211,7 +244,7 @@ export default {
         cursor: pointer;
     }
 
-    .admin-header h1 {
+    .admin-header a {
         color: #006060;
         text-transform: uppercase;
         font-size: 36px;
@@ -283,12 +316,12 @@ export default {
     }
 
     .accept-active {
-        color: #2F67F9;
+        color: white;
         background: #2F67F9;
     }
 
     .finish-active {
-        color: #d4d4d4;
+        color: white;
         background: #d4d4d4;
     }
 

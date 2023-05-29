@@ -12,7 +12,7 @@
             <div class="about-inner">
                 <AboutInnerInfo/>
             </div>
-            <img class="about-img" :src="getUrlImage('about-img.png')" alt="">
+            <img class="about-img" :src="getUrlImage('conts/about-img.png')" alt="">
         </Container>
     </section>
 </template>

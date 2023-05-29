@@ -1,6 +1,6 @@
 <template>
     <section class="order-page">
-        <img class="home-bg" :src="getImageUrl('bg.jpg')" alt="">
+        <img class="home-bg" :src="getImageUrl('conts/bg.jpg')" alt="">
         <Header/>
         <Container>
             <OrderForm/>

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -20,11 +21,11 @@ class AuthController extends Controller
     {
         $credentials = $request->only('name', 'password');
         if (Auth::attempt($credentials)) {
-            $user = Auth::user();
+            redirect()->to('/admin');
 
             return response()->json([
                'status' => 'success',
-               'data' => $user
+               'data' => auth()->user()
             ]);
         }
 

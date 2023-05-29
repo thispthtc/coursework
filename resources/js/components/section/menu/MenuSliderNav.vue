@@ -19,7 +19,6 @@ export default {
     },
     methods: {
         toggleNav(event) {
-            console.log(this.first);
             let sliderItems = document.querySelectorAll('.m-sl-item')
             let navItems = document.querySelectorAll('.m-sl-nav button')
 
@@ -35,13 +34,10 @@ export default {
             })
 
             if (sliderItems[event.target.id].classList.contains('hidden-item')) {
-                console.log(event.target.dataset.index)
                 event.target.classList.add('active')
                 sliderItems[event.target.id].classList.remove('hidden-item')
                 sliderItems[event.target.id].classList.add('active-item')
             }
-
-            console.log(getComputedStyle(sliderItems[event.target.id]).display)
         }
     },
     mounted() {
@@ -53,7 +49,6 @@ export default {
 
         navItems.forEach(item => {
             item.id = this.index
-            console.log(this.index)
             this.index++
         })
     }
@@ -65,7 +60,6 @@ export default {
         display: flex;
         width: 1360px;
         margin: 0 auto;
-        justify-content: space-between;
         background: white;
         box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.25);
         border-radius: 20px;
@@ -82,6 +76,11 @@ export default {
         border: none;
         font-weight: bold;
         cursor: pointer;
+        margin-left: 50px;
+    }
+
+    .m-sl-nav button:first-child, .m-sl-nav button:last-child {
+        margin: 0;
     }
 
     .active {

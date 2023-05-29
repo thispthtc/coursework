@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\MenuCategoryController;
 use App\Http\Controllers\Api\MenuController;
 use App\Http\Controllers\Api\OrderController;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,13 +27,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Меню
 Route::get('/menu', [MenuController::class, 'index']);
 Route::get('/menu/{category}', [MenuController::class, 'show']);
+Route::post('/menu', [MenuController::class, 'store']);
+Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
+
 
 // Катерогории меню
 Route::get('/menu_category', [MenuCategoryController::class, 'index']);
+Route::post('/menu_category', [MenuCategoryController::class, 'store']);
+Route::delete('/menu_category/{id}', [MenuCategoryController::class, 'destroy']);
+
+
 
 // Заказы
 Route::get('/order', [OrderController::class, 'index']);
+Route::get('/order/{id}', [OrderController::class, 'show']);
 Route::post('/order', [OrderController::class, 'store']);
+Route::patch('/order/{id}', [OrderController::class, 'update']);
 
 // Пользователи
 Route::get('/auth', [AuthController::class, 'index']);

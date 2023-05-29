@@ -18,19 +18,19 @@ export default {
         return {
             aboutItem: [
                 {
-                    img: this.getImageUrl('clock.png'),
+                    img: this.getImageUrl('conts/clock.png'),
                     text: "8:00 - 23:00"
                 },
                 {
-                    img: this.getImageUrl('restaurant.png'),
+                    img: this.getImageUrl('conts/restaurant.png'),
                     text: "Огромный выбор меню"
                 },
                 {
-                    img: this.getImageUrl('ok.png'),
+                    img: this.getImageUrl('conts/ok.png'),
                     text: "Приятная атмосфера"
                 },
                 {
-                    img: this.getImageUrl('map.png'),
+                    img: this.getImageUrl('conts/map.png'),
                     text: "Центр города"
                 },
 

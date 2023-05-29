@@ -25,7 +25,7 @@ import Header from "@/components/section/Header.vue";
 export default {
     data() {
         return {
-            image: import.meta.env.VITE_APP_IMAGE_PATH + "bg.jpg",
+            image: import.meta.env.VITE_APP_IMAGE_PATH + "conts/bg.jpg",
         };
     },
     methods: {},

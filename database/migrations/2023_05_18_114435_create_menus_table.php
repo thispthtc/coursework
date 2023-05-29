@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('name', 50);
             $table->text('description')->nullable();
             $table->unsignedBigInteger('weight');
-            $table->string('src_img', 50);
+            $table->string('src_img', 255)->nullable();
+            $table->string('price', 50);
             $table->timestamps();
 
             $table->foreign('id_category')

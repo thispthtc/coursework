@@ -38,17 +38,24 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): JsonResponse
     {
-        //
+        $order = Order::find($id);
+        return response()->json($order);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        //
+        $order = Order::find($id);
+
+        $order->status = $request->status;
+        $order->save();
+
+
+        return response()->json($order);
     }
 
     /**

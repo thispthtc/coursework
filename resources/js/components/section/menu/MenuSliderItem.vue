@@ -16,7 +16,8 @@
 
             <div class="info-extend">
                 <p class="info-weird">{{ menuItem.weight }}</p>
-                <Button class="menu-btn" text="Подробнее"/>
+                <Button @click.prevent="deleteMenuItem(menuItem.id)" v-if="admin" class="menu-btn" text="Удалить" />
+                <Button v-else class="menu-btn" text="Подробнее"/>
             </div>
         </div>
     </div>
@@ -28,12 +29,18 @@
 
 <script>
 import Button from "@/components/UI/Button.vue";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     components: {Button},
     methods: {
+        ...mapActions(['DELETE_MENU_ITEM_FROM_API']),
+
         getImageUrl: filename => {
             return import.meta.env.VITE_APP_IMAGE_PATH + filename
+        },
+        deleteMenuItem(id) {
+            this.DELETE_MENU_ITEM_FROM_API(id)
         }
     },
     props: {
@@ -41,6 +48,10 @@ export default {
             type: Object,
             require: true
         },
+        admin: {
+            type: Boolean,
+            default: false
+        }
     },
     mounted() {
     }
@@ -58,6 +69,7 @@ export default {
         border-radius: 20px;
         margin: 75px auto 30px auto;
         position: relative;
+        justify-content: center;
     }
 
 

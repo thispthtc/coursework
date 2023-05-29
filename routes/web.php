@@ -29,6 +29,10 @@ Route::get('/menu', function () {
     return view('index');
 });
 
+Route::get('/login', function () {
+    return view('index');
+});
+
 
 //Auth::routes();
 //

@@ -29,7 +29,7 @@
 import Container from "@/components/Container.vue";
 import Header from "../components/section/Header.vue"
 import TitleSection from "@/components/UI/TitleSection.vue";
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     components: {TitleSection, Container, Header},
@@ -38,6 +38,9 @@ export default {
             login: "",
             password: ""
         }
+    },
+    computed: {
+        ...mapGetters(["USER"])
     },
     methods: {
         ...mapActions(["GET_AUTH"]),
@@ -48,9 +51,16 @@ export default {
                 password: this.password
             }
 
-            console.log(user)
-
-            this.GET_AUTH(user)
+            if (this.USER !== null) {
+                this.$router.push('/admin')
+            } else {
+                this.GET_AUTH(user)
+            }
+        }
+    },
+    mounted() {
+        if (this.USER !== null) {
+            this.$router.push('/admin')
         }
     }
 }
