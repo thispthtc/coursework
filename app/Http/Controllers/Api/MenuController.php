@@ -56,9 +56,22 @@ class MenuController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): JsonResponse
     {
-        //
+        $menuItem = Menu::find($id);
+        $menuItem->update([
+            'name' => $request->input('name'),
+            'id_category' => $request->input('id_category'),
+            'price' => $request->input('price'),
+            'description' => $request->input('description'),
+            'weight' => $request->input('weight'),
+        ]);
+
+        if ($request->hasFile('src_img')) {
+            $menuItem->update(['src_img' => Storage::disk('public')->put('/menu', $request->file('src_img'))]);
+        }
+
+        return response()->json($menuItem);
     }
 
     /**

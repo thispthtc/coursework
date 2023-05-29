@@ -1,31 +1,40 @@
 <template>
-    <div class="m-sl-item hidden-item">
+        <div class="m-sl-item hidden-item">
+            <div class="sl-image">
+                <div class="img-bg img-bg1"></div>
+                <div class="img-bg img-bg2"></div>
+                <div class="img-bg img-bg3"></div>
+                <div class="img-bg img-bg4"></div>
+                <img :src="getImageUrl(menuItem.src_img)" alt="">
+            </div>
 
-        <div class="sl-image">
-            <div class="img-bg img-bg1"></div>
-            <div class="img-bg img-bg2"></div>
-            <div class="img-bg img-bg3"></div>
-            <div class="img-bg img-bg4"></div>
-            <img :src="getImageUrl(menuItem.src_img)" alt="">
-        </div>
+            <div class="sl-item-info">
+                <h2 class="info-title">{{ menuItem.name }}</h2>
 
-        <div class="sl-item-info">
-            <h2 class="info-title">{{ menuItem.name }}</h2>
+                <p class="info-description">{{ menuItem.description }}</p>
 
-            <p class="info-description">{{ menuItem.description }}</p>
+                <div class="info-extend">
+                    <p class="info-weird">{{ menuItem.weight }}</p>
+                    <div class="btns-admin-menu" v-if="admin">
+                        <Button
+                            @click.prevent="deleteMenuItem(menuItem.id)"
+                            class="menu-btn" text="Удалить"
+                        />
 
-            <div class="info-extend">
-                <p class="info-weird">{{ menuItem.weight }}</p>
-                <Button @click.prevent="deleteMenuItem(menuItem.id)" v-if="admin" class="menu-btn" text="Удалить" />
-                <Button v-else class="menu-btn" text="Подробнее"/>
+                        <Button
+                            @click.prevent="editMenuItem"
+                            class="menu-btn"
+                            text="Изменить"
+                        />
+                    </div>
+                    <Button
+                        v-else
+                        class="menu-btn"
+                        text="Подробнее"/>
+                </div>
             </div>
         </div>
-    </div>
 </template>
-
-
-<!-- todo: доделать фон -->
-
 
 <script>
 import Button from "@/components/UI/Button.vue";
@@ -41,6 +50,13 @@ export default {
         },
         deleteMenuItem(id) {
             this.DELETE_MENU_ITEM_FROM_API(id)
+        },
+        editMenuItem() {
+            let show = true
+            this.$emit('editMenuItem', {
+                menuItem: this.menuItem,
+                show: show
+            })
         }
     },
     props: {
@@ -51,7 +67,7 @@ export default {
         admin: {
             type: Boolean,
             default: false
-        }
+        },
     },
     mounted() {
     }
@@ -59,6 +75,15 @@ export default {
 </script>
 
 <style>
+    .btns-admin-menu button {
+        display: block;
+        margin-top: 20px;
+    }
+
+    .btns-admin-menu button:first-child {
+        margin: 0;
+    }
+
     .m-sl-item {
         display: flex;
         align-items: center;

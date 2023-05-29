@@ -101,6 +101,21 @@ export default {
                 return error
             })
         },
+        CHANGE_MENU_ITEM({commit}, formData) {
+            return axios({
+                url: `http://127.0.0.1:8000/api/menu_item/${formData.get("id")}`,
+                method: "POST",
+                data: formData,
+                header: {
+                    "Content-Type": "multipart/form-data"
+                },
+            }).then(response => {
+                commit("SET_MENU_ITEMS_TO_STATE", response.data)
+                console.log(response.data)
+            }).catch(error => {
+                return error
+            })
+        },
         DELETE_MENU_ITEM_FROM_API({commit}, id) {
             return axios({
                 url: "http://127.0.0.1:8000/api/menu/" + id,

@@ -6,6 +6,7 @@
             :key="index"
             :menu-item="menuItem"
             :admin="admin"
+            @editMenuItem="editMenu"
         />
         <div class="m-sl-item" v-if="admin && viewAdd">
             <form class="add-menu-item" >
@@ -40,6 +41,41 @@
                 </div>
             </form>
         </div>
+
+        <div class="m-sl-item" v-if="admin && editView">
+            <form class="add-menu-item">
+                <div class="main-add-info">
+                    <div class="file">
+                        <label for="">ФАЙЛ</label>
+                        <input @change="handledEditImage" type="file">
+                    </div>
+
+                    <div class="name">
+                        <label for="">Название</label>
+                        <input v-model.trim="edit.name"  type="text">
+                    </div>
+
+                    <div class="price">
+                        <label for="">Цена</label>
+                        <input v-model.trim="edit.price" type="text">
+                    </div>
+
+                    <div class="weight">
+                        <label for="">Вес</label>
+                        <input v-model.trim="edit.weight" type="text">
+                    </div>
+
+                    <Button @click.prevent="changeMenuItem" class="btn-add" text="Изменить"/>
+                </div>
+
+
+                <div class="description">
+                    <label for="">Описание</label>
+                    <textarea v-model.trim="edit.description" name="" id="" cols="30" rows="10"></textarea>
+                </div>
+            </form>
+        </div>
+
         <div class="m-sl-nav">
             <MenuSliderNav
                 v-for="(menuItem, index) in MENU_ITEMS_BY_CATEGORY"
@@ -68,7 +104,17 @@ export default {
     data() {
         return {
             viewAdd: false,
+            editView: false,
             form: {
+                name: "",
+                price: "",
+                weight: "",
+                description: "",
+                image: null,
+            },
+            edit: {
+                id: "",
+                id_category: "",
                 name: "",
                 price: "",
                 weight: "",
@@ -81,12 +127,14 @@ export default {
         ...mapGetters(["MENU_ITEMS_BY_CATEGORY"]),
     },
     methods: {
-        ...mapActions(["GET_CATEGORY_MENU_FROM_API", "SEND_MENU_ITEM_TO_API"]),
+        ...mapActions(["GET_CATEGORY_MENU_FROM_API", "SEND_MENU_ITEM_TO_API", "CHANGE_MENU_ITEM"]),
 
         getImageUrl: filename => {
             return import.meta.env.VITE_APP_IMAGE_PATH + filename
         },
-
+        handledEditImage(e) {
+            this.edit.image = e.target.files[0]
+        },
         handledImage(e) {
             this.form.image = e.target.files[0]
         },
@@ -103,11 +151,62 @@ export default {
             }).catch(error => {
                 console.log(error)
             })
+
             this.GET_CATEGORY_MENU_FROM_API(this.category).then(response => {
             }).catch(error => {
                 console.log(error)
             })
+
             this.viewAdd = false
+        },
+        editMenu(menuItem) {
+            this.editView = !this.editView
+
+            this.edit.id = menuItem.menuItem.id
+            this.edit.id_category = menuItem.menuItem.id_category
+            this.edit.name = menuItem.menuItem.name
+            this.edit.price = menuItem.menuItem.price
+            this.edit.weight = menuItem.menuItem.weight
+            this.edit.description = menuItem.menuItem.description
+
+
+        },
+        changeMenuItem(){
+            let formData = new FormData()
+
+            debugger
+            formData.append('_method', 'PUT')
+
+
+            if (this.edit.image === null) {
+                formData.append('id', this.edit.id)
+                formData.append('id_category', this.edit.id_category)
+                formData.append('name', this.edit.name)
+                formData.append('price', this.edit.price)
+                formData.append('weight', this.edit.weight)
+                formData.append('description', this.edit.description)
+            } else {
+                formData.append('id', this.edit.id)
+                formData.append('id_category', this.edit.id_category)
+                formData.append('name', this.edit.name)
+                formData.append('price', this.edit.price)
+                formData.append('weight', this.edit.weight)
+                formData.append('description', this.edit.description)
+                formData.append('src_img', this.edit.image)
+            }
+
+            console.log(formData.getAll("name"))
+
+            this.CHANGE_MENU_ITEM(formData).then(response => {
+                console.log(response)
+            }).catch(error => {
+                console.log(error)
+            })
+
+            this.GET_CATEGORY_MENU_FROM_API(this.category).then(response => {
+            }).catch(error => {
+                console.log(error)
+            })
         },
         show() {
             this.viewAdd = !this.viewAdd
