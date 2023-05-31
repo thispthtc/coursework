@@ -34,6 +34,7 @@
                         @click="toggleItem"
                         v-for="(orderItem, index) in ORDER"
                         :key="index"
+                        :class="orderItem.status === 'новый' ? 'is-new' : orderItem.status === 'принят' ? 'is-accept' : 'is-finish'"
                     >
                         <div class="main-info">
                             <p class="main-info-item">ФИО: {{ orderItem.full_name }}</p>
@@ -277,6 +278,19 @@ export default {
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
         border-radius: 20px;
         cursor: pointer;
+    }
+
+    .is-new {
+        border: 3px solid #6CAE4B;
+    }
+
+    .is-accept {
+        border: 3px solid #2F67F9;
+    }
+
+    .is-finish {
+        border: 3px solid #d4d4d4;
+        opacity: .5;
     }
 
     .main-info {

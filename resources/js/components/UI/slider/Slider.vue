@@ -60,24 +60,23 @@ export default {
         return {
             color: "#006060",
             currentSlide: 0,
-            categoryItem: null
+            categoryItem: "",
+            countSlider: ""
         };
     },
     methods: {
         ...mapActions(["GET_SLIDER_MENU_FROM_API", "GET_MENU_LIST_CATEGORY"]),
 
         nextSlide() {
-            if (this.currentSlide === this.MENU_ITEMS_FOR_SLIDER.length - 1) this.currentSlide = 0
+            console.log(this.countSlider)
+            if (this.currentSlide === this.countSlider-1) this.currentSlide = 0
             else this.currentSlide++
         },
 
         prevSlide() {
-            if (this.currentSlide === 0) this.currentSlide = this.MENU_ITEMS_FOR_SLIDER.length - 1
+            if (this.currentSlide === 0) this.currentSlide = this.countSlider-1
             else this.currentSlide--
         },
-        getCategory() {
-
-        }
     },
     beforeUpdate() {
 
@@ -86,10 +85,17 @@ export default {
 
     },
     mounted() {
+
         this.GET_SLIDER_MENU_FROM_API("2").then((response) => {
+            for (let item in response.data) {
+                this.countSlider++
+            }
+            console.log(response.data)
         }).catch(error => {
             return error
         });
+
+
     },
 };
 </script>

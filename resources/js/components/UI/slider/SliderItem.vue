@@ -78,7 +78,7 @@ export default {
 }
 
 .slider-img {
-    width: 807px;
+    width: 800px;
     z-index: 78;
     margin-top: 20px;
     border-radius: 40px;

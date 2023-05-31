@@ -32,7 +32,7 @@ export default {
     actions: {
         GET_ITEMS_FROM_API({ commit }) {
             return axios({
-                url: "http://127.0.0.1:8000/api/menu",
+                url: "api/menu",
                 method: "GET",
             })
                 .then((items) => {
@@ -45,7 +45,7 @@ export default {
         },
         GET_CATEGORY_MENU_FROM_API({commit}, category) {
             return axios({
-                url: "http://127.0.0.1:8000/api/menu/" + category,
+                url: "api/menu/" + category,
                 method: "GET",
             }).then((menuItemsByCategory) => {
                 commit("SET_CATEGORY_MENU_TO_STATE", menuItemsByCategory.data);
@@ -56,7 +56,7 @@ export default {
         },
         GET_SLIDER_MENU_FROM_API({ commit }, category) {
             return axios({
-                url: "http://127.0.0.1:8000/api/menu/" + category,
+                url: "api/menu/" + category,
                 method: "GET",
             }).then((menuItemsByCategory) => {
                 commit("SET_SLIDER_MENU_TO_STATE", menuItemsByCategory.data);
@@ -67,7 +67,7 @@ export default {
         },
         GET_MENU_LIST_CATEGORY({commit}) {
             return axios({
-                url: "http://127.0.0.1:8000/api/menu_category",
+                url: "api/menu_category",
                 method: "GET"
             }).then(category => {
                 commit("SET_MENU_LIST_CATEGORY", category.data)
@@ -78,7 +78,7 @@ export default {
         },
         SEND_CATEGORY_ITEM_TO_API({commit}, name) {
             return axios({
-                url: "http://127.0.0.1:8000/api/menu_category",
+                url: "api/menu_category",
                 method: "POST",
                 data: name
             }).then(response => {
@@ -89,7 +89,7 @@ export default {
         },
         SEND_MENU_ITEM_TO_API({commit}, menu) {
             return axios({
-                url: "http://127.0.0.1:8000/api/menu",
+                url: "api/menu",
                 method: "POST",
                 data: menu,
                 header: {
@@ -103,7 +103,7 @@ export default {
         },
         CHANGE_MENU_ITEM({commit}, formData) {
             return axios({
-                url: `http://127.0.0.1:8000/api/menu_item/${formData.get("id")}`,
+                url: `api/menu_item/${formData.get("id")}`,
                 method: "POST",
                 data: formData,
                 header: {
@@ -118,7 +118,7 @@ export default {
         },
         DELETE_MENU_ITEM_FROM_API({commit}, id) {
             return axios({
-                url: "http://127.0.0.1:8000/api/menu/" + id,
+                url: "api/menu/" + id,
                 method: "DELETE"
             }).then(response => {
                 commit("SET_MENU_ITEMS_TO_STATE", response.data)
@@ -128,7 +128,7 @@ export default {
         },
         DELETE_MENU_CATEGORY_FROM_API({commit}, id) {
             return axios({
-                url: "http://127.0.0.1:8000/api/menu_category/" + id,
+                url: "api/menu_category/" + id,
                 method: "DELETE"
             }).then(response => {
                 commit("SET_MENU_LIST_CATEGORY_TO_STATE", response.data)

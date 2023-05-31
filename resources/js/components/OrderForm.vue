@@ -39,7 +39,9 @@
         </div>
 
         <div class="">
-            <div></div>
+            <div class="disabled" v-for="(error, index) in errors" :key="index">
+                {{ error }}
+            </div>
             <Button class="btn-order" text="Забронировать"/>
         </div>
     </form>
@@ -82,6 +84,9 @@ export default {
         ...mapActions(["SEND_ORDER_TO_API"]),
 
         formCheck() {
+            let button = document.querySelector('.btn-order')
+
+
             this.valid.nameCheck = this.form.fullname.length > 0 && /\d/.test(this.form.fullname) === false;
             this.valid.phoneCheck = this.form.phone.length > 0;
             this.valid.countCheck = this.form.count > 0;
@@ -98,10 +103,15 @@ export default {
                 description: this.form.description,
             }
 
-            console.log()
-            console.log(formData)
+            if (!this.valid.nameCheck) {
+                this.errors.push('Только буквы')
+            }
 
-            this.SEND_ORDER_TO_API(formData)
+            if (this.valid.nameCheck && this.valid.phoneCheck && this.valid.countCheck && this.valid.dateCheck) {
+                this.SEND_ORDER_TO_API(formData);
+            } else {
+                this.errors.push('Заполните все поля')
+            }
         }
     }
 }
@@ -134,6 +144,13 @@ export default {
         font-size: 40px !important;
         color: #006060 !important;
         margin-top: 60px;
+    }
+
+    .disabled {
+        color: #7d0c09;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-family: Raleway, sans-serif;
     }
 
     .fullname {

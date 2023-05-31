@@ -13,15 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('admin')->group(function () {
+    Route::get('/admin', function () {
+        return view('index');
+    });
+});
+
 Route::get('/', function () {
     return view('index');
 });
 
 Route::get('/order', function () {
-    return view('index');
-});
-
-Route::get('/admin', function () {
     return view('index');
 });
 
@@ -32,6 +34,7 @@ Route::get('/menu', function () {
 Route::get('/login', function () {
     return view('index');
 });
+
 
 
 //Auth::routes();

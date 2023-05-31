@@ -20,9 +20,9 @@ class AuthController extends Controller
     public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('name', 'password');
+
         if (Auth::attempt($credentials)) {
             redirect()->to('/admin');
-
             return response()->json([
                'status' => 'success',
                'data' => auth()->user()

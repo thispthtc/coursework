@@ -14,7 +14,7 @@
                 <p class="info-description">{{ menuItem.description }}</p>
 
                 <div class="info-extend">
-                    <p class="info-weird">{{ menuItem.weight }}</p>
+                    <p class="info-weird">{{ menuItem.weight }} г</p>
                     <div class="btns-admin-menu" v-if="admin">
                         <Button
                             @click.prevent="deleteMenuItem(menuItem.id)"
@@ -27,6 +27,7 @@
                             text="Изменить"
                         />
                     </div>
+                    <p class="price" v-else-if="price">{{menuItem.price}}р</p>
                     <Button
                         v-else
                         class="menu-btn"
@@ -68,6 +69,10 @@ export default {
             type: Boolean,
             default: false
         },
+        price: {
+            type: Boolean,
+            default: false
+        }
     },
     mounted() {
     }
@@ -75,6 +80,14 @@ export default {
 </script>
 
 <style>
+    .price {
+        font-size: 24px;
+        text-align: justify;
+        font-family: "Raleway", sans-serif;
+        font-weight: bold;
+        color: #6CAE4B;
+    }
+
     .btns-admin-menu button {
         display: block;
         margin-top: 20px;

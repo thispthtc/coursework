@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "@/router";
 
 export default {
     state: {
@@ -20,7 +21,10 @@ export default {
                 data: user
             }).then(r => {
                 commit('SET_AUTH', r.data)
-                // window.location.href = 'admin'
+                if (r.data.status === 'success') {
+                    console.log('success')
+                    router.push('/admin')
+                }
             }).catch(e => {
                 console.log(e)
             })

@@ -7,6 +7,7 @@
             :menu-item="menuItem"
             :admin="admin"
             @editMenuItem="editMenu"
+            :price="price"
         />
         <div class="m-sl-item" v-if="admin && viewAdd">
             <form class="add-menu-item" >
@@ -83,7 +84,7 @@
                 :menu-item="menuItem"
                 :admin="admin"
             />
-            <div @click="show" class="add-menu">
+            <div @click="show" v-if="admin" class="add-menu">
                 <button>
                     <plus-icon class="plus" :size="44"/>
                 </button>
@@ -120,14 +121,15 @@ export default {
                 weight: "",
                 description: "",
                 image: null,
-            }
+            },
+            price: true
         }
     },
     computed: {
-        ...mapGetters(["MENU_ITEMS_BY_CATEGORY"]),
+        ...mapGetters(["MENU_ITEMS_BY_CATEGORY", "MENU_LIST_CATEGORY"]),
     },
     methods: {
-        ...mapActions(["GET_CATEGORY_MENU_FROM_API", "SEND_MENU_ITEM_TO_API", "CHANGE_MENU_ITEM"]),
+        ...mapActions(["GET_CATEGORY_MENU_FROM_API", "GET_MENU_LIST_CATEGORY", "SEND_MENU_ITEM_TO_API", "CHANGE_MENU_ITEM"]),
 
         getImageUrl: filename => {
             return import.meta.env.VITE_APP_IMAGE_PATH + filename
@@ -195,8 +197,6 @@ export default {
                 formData.append('src_img', this.edit.image)
             }
 
-            console.log(formData.getAll("name"))
-
             this.CHANGE_MENU_ITEM(formData).then(response => {
                 console.log(response)
             }).catch(error => {
@@ -228,10 +228,12 @@ export default {
         }
     },
     mounted() {
-        this.GET_CATEGORY_MENU_FROM_API(this.category).then(response => {
+        this.GET_CATEGORY_MENU_FROM_API('1').then(response => {
         }).catch(error => {
             console.log(error)
         })
+
+
     }
 }
 </script>

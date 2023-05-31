@@ -51,17 +51,12 @@ export default {
                 password: this.password
             }
 
-            if (this.USER !== null) {
-                this.$router.push('/admin')
-            } else {
-                this.GET_AUTH(user)
-            }
+            this.GET_AUTH(user).then(response => {
+                console.log(response)
+            })
         }
     },
     mounted() {
-        if (this.USER !== null) {
-            this.$router.push('/admin')
-        }
     }
 }
 </script>
